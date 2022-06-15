@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public abstract class _LevelController : MonoBehaviour
+public abstract class _LevelController : PersistentSingleton<LevelController>
 {
     [SerializeField]
     protected Transform LevelParent;

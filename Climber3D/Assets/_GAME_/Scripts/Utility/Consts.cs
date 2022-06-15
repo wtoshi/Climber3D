@@ -14,6 +14,13 @@ public class Consts : MonoBehaviour
         public const string Touchable = "Touchable";
     }
 
+    public struct Animations
+    {
+        public const string Idle = "Idle";
+        public const string Jump = "Jump";
+        public const string Hanging = "Hanging";
+    }
+
     public struct FileNames
     {
         public const string LEVELDATA = "level.dat";

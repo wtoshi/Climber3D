@@ -4,15 +4,10 @@ using UnityEngine;
 
 public class ClimbPoint : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [SerializeField] Transform rightHandTarget;
+    [SerializeField] Transform leftHandTarget;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public Transform RightHandTarget => rightHandTarget;
+    public Transform LeftHandTarget => leftHandTarget;
+
 }

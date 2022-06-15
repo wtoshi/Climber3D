@@ -6,6 +6,8 @@ using UnityEngine;
 public class LevelFacade : MonoBehaviour
 {
 	[SerializeField] Transform playerSpawnPosition;
+	[SerializeField] ClimbPoint firstJumpPoint;
 
 	public Transform PlayerSpawnPosition => playerSpawnPosition;
+	public ClimbPoint FirstJumpPoint => firstJumpPoint;
 }

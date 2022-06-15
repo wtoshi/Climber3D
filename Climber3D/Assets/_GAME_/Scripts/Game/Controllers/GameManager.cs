@@ -35,17 +35,22 @@ public class GameManager : PersistentSingleton<GameManager>
 
     void GetReady(LevelLoadedEventData _data)
     {
-
+        Debug.Log("Game Ready!");
+        _gameState = GameStates.Ready;
     }
 
     public void StartGame()
     {
+        Debug.Log("Start Game!");
+        _gameState = GameStates.Started;
 
+        EventManager.LevelStartEvent?.Invoke();
     }
 
     public void FinishLevel(bool _success)
     {
-
+        Debug.Log("Game Finished!");
+        _gameState = GameStates.Finished;
     }
 
 

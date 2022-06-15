@@ -29,7 +29,6 @@ public class PlayerInput : MonoBehaviour
 
                 if (climbPoint != null)
                 {
-					Debug.Log("Touchable!");
 					EventManager.OnTouchEvent?.Invoke(new TouchableData(climbPoint));
 				}
 			}

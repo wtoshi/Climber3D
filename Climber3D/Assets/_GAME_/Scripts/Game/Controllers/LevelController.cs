@@ -4,6 +4,10 @@ public class LevelController : _LevelController
 {
 	[SerializeField] GameObject playerPF;
 
+	LevelFacade _levelFacade;
+
+	public LevelFacade LevelFacade => _levelFacade;
+
     private void Start()
     {
 		LoadLevel();
@@ -17,9 +21,9 @@ public class LevelController : _LevelController
 
 	private void PrepareLevel()
 	{
-		LevelFacade levelFacade = Instantiate<LevelFacade>(LevelContent.LevelFacade, LevelParent);
+		_levelFacade = Instantiate<LevelFacade>(LevelContent.LevelFacade, LevelParent);
 
-		GameObject player = Instantiate(playerPF, levelFacade.transform);
+		GameObject player = Instantiate(playerPF, _levelFacade.transform);
 
 		Transform target = player.transform;
 
@@ -28,6 +32,6 @@ public class LevelController : _LevelController
 			CameraManager.Instance.Init(target);
 		}
 
-		SendLevelLoadedEvent(levelFacade);
+		SendLevelLoadedEvent(_levelFacade);
 	}
 }
