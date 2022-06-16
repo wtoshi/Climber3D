@@ -11,8 +11,30 @@ public class PlayerRagdoll : MonoBehaviour
 
     public Transform Pelvis => pelvis;
 
-    public void SetPinWeight(float _weight)
+    private void Start()
+    {
+        FirstState();
+    }
+
+    void FirstState()
+    {
+        myRagdoll.mappingWeight = 0f;
+    }
+
+    public void SetForGame()
+    {
+        myRagdoll.mappingWeight = 1f;
+        SetPinWeight(0);
+    }
+
+    void SetPinWeight(float _weight)
     {
         myRagdoll.pinWeight = _weight;
+    }
+
+    void EnableRagdoll(bool _mode)
+    {
+        PuppetMaster.State state = _mode ? PuppetMaster.State.Alive : PuppetMaster.State.Dead;
+        myRagdoll.state = state;
     }
 }

@@ -6,11 +6,13 @@ public class Consts : MonoBehaviour
     public struct Tags
     {
         public const string Player = "Player";
+        public const string PlayerRagdoll = "Puppet";
     }
 
     public struct Layers
     {
         public const string Player = "Player";
+        public const string PlayerRagdoll = "Puppet";
         public const string Touchable = "Touchable";
     }
 

@@ -91,6 +91,7 @@ public abstract class _LevelController : PersistentSingleton<LevelController>
 
     protected virtual void ResetLevel()
     {
+        LevelParent.DestroyChildren();
         //TODO Clear destroyList or DestroyTransform
     }
 

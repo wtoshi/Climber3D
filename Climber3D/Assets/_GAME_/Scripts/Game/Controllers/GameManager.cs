@@ -45,12 +45,26 @@ public class GameManager : PersistentSingleton<GameManager>
         _gameState = GameStates.Started;
 
         EventManager.LevelStartEvent?.Invoke();
+
+        //SpawnController.Instance.SpawnBats(true);
+        //SpawnController.Instance.SpawnRock(true);
     }
 
     public void FinishLevel(bool _success)
     {
-        Debug.Log("Game Finished!");
+        SpawnController.Instance.SpawnBats(false);
+        SpawnController.Instance.SpawnRock(false);
+
         _gameState = GameStates.Finished;
+
+        if (_success)
+        {
+            EventManager.LevelSuccessEvent?.Invoke();
+        }
+        else
+        {
+            EventManager.LevelFailEvent?.Invoke();
+        }
     }
 
 

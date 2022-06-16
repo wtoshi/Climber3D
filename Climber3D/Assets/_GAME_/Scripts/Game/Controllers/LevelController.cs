@@ -3,10 +3,12 @@ using UnityEngine;
 public class LevelController : _LevelController
 {
 	[SerializeField] GameObject playerPF;
+	[SerializeField] Transform spawnsHolder;
 
 	LevelFacade _levelFacade;
 
 	public LevelFacade LevelFacade => _levelFacade;
+	public Transform SpawnsHolder => spawnsHolder;
 
     private void Start()
     {
@@ -25,13 +27,22 @@ public class LevelController : _LevelController
 
 		GameObject player = Instantiate(playerPF, _levelFacade.transform);
 
-		Transform target = player.transform;
+        if (player != null)
+        {
+			PlayerController playerController = player.GetComponent<PlayerController>();
 
-		if (target != null)
-		{
-			CameraManager.Instance.Init(target);
+			CameraManager.Instance.Init(playerController.PlayerMovement.pelvis);
+
+			if (playerController != null)
+			{
+				GameManager.Instance.Player = playerController;
+
+				SendLevelLoadedEvent(_levelFacade);
+
+				return;
+			}
 		}
 
-		SendLevelLoadedEvent(_levelFacade);
+		Debug.LogError("Can't Instantiate Player!");
 	}
 }

@@ -12,10 +12,15 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] Rigidbody leftHandRB;
     [SerializeField] ConfigurableJoint rightHandAnchor;
     [SerializeField] ConfigurableJoint leftHandAnchor;
+    [SerializeField] Rigidbody pelvisRB;
 
     [FoldoutGroup("Movement Settings")]
     [SerializeField] float baseClimbSpeed;
 
+    public bool CanClimb { get => _canClimb; set { _canClimb = value; } }
+    public Transform pelvis => pelvisRB.transform;
+
+    bool _canClimb;
     ClimbPoint _currentClimbPoint;
     float _currentClimbSpeed;
     bool _isClimbing;
@@ -54,26 +59,33 @@ public class PlayerMovement : MonoBehaviour
         ClimbPoint firstPoint = LevelController.Instance.LevelFacade.FirstJumpPoint;
         _currentClimbPoint = firstPoint;
 
-        myRB.velocity = Vector3.up * _currentClimbSpeed * 1.5f;
+        
+        this.Run(.8f, ()=> {
 
-        this.Run(.5f, () => {
+            //myRB.velocity = Vector3.up * _currentClimbSpeed;
+            myRB.AddForce(Vector3.up * 5f, ForceMode.Impulse);
 
-            playerController.PlayerRagdoll.SetPinWeight(0f);
+            this.Run(.2f, ()=> {
 
-            MoveHand(firstPoint, true);
-            MoveHand(firstPoint, false);
+                playerController.PlayerRagdoll.SetForGame();
+                MoveHand(firstPoint, true);
+                MoveHand(firstPoint, false);
 
-            myRB.velocity = Vector3.zero;
-            myRB.isKinematic = true;
+                myRB.velocity = Vector3.zero;
+                myRB.angularVelocity = Vector3.zero;
+                myRB.isKinematic = true;
 
-            _isClimbing = false;
-            playerController.ResetParentPosition();
+                _isClimbing = false;
+                _canClimb = true;
+                playerController.ResetParentPosition();
+            });
         });
+        
     }
 
     void ClimbTo(TouchableData _data)
     {
-        if (_isClimbing || _currentClimbPoint == _data.climbPoint)
+        if (_isClimbing || _currentClimbPoint == _data.climbPoint || !_canClimb)
             return;
 
         ClimbPoint toPoint = _data.climbPoint;
