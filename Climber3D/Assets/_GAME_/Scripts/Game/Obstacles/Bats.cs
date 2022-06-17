@@ -18,6 +18,8 @@ public class Bats : MonoBehaviour
             ParticleSystem.CollisionModule colModule = batsParticle.collision;
             colModule.enabled = false;
 
+            GameManager.Instance.Player.GetHit();
+
             GameManager.Instance.FinishLevel(false);
         }
             

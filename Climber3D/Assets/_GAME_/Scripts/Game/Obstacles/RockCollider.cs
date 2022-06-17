@@ -11,8 +11,12 @@ public class RockCollider : MonoBehaviour
     {
         if (other.CompareTag(Consts.Tags.PlayerRagdoll))
         {
+            var collisionPoint = myCol.ClosestPoint(other.transform.position);
+            collisionPoint.z = other.transform.position.z;
+
             myCol.enabled = false;
-            myRock.HitToPlayer();
+
+            myRock.HitToPlayer(collisionPoint);
         }
     }
 }

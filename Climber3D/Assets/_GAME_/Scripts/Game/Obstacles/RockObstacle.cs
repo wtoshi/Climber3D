@@ -26,8 +26,18 @@ public class RockObstacle : MonoBehaviour
         Animate();
     }
 
-    public void HitToPlayer()
+    public void HitToPlayer(Vector3 _hitPoint)
     {
+        _isActive = false;
+        modelTransform.gameObject.SetActive(false);
+
+        // Add Rock Hit FX
+        FXController.Instance.AddParticle(Consts.Particles.RockHit, _hitPoint, 2f, LevelController.Instance.SpawnsHolder);
+
+        // Player GetHit
+        GameManager.Instance.Player.GetHit();
+
+        // Fail LEVEL
         GameManager.Instance.FinishLevel(false);
     }
 

@@ -137,6 +137,11 @@ public class PlayerMovement : MonoBehaviour
         });
     }
 
+    public void ReleaseHands()
+    {
+        rightHandAnchor.connectedBody = null;
+        leftHandAnchor.connectedBody = null;
+    }
 
 
 

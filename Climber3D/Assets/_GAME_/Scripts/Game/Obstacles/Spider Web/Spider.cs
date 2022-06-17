@@ -62,6 +62,8 @@ public class Spider : MonoBehaviour
         SetMovingState(false);
         myAnim.SetTrigger(AttackHash);
 
+        GameManager.Instance.Player.GetHit();
+
         this.Run(.2f, ()=> {
             GameManager.Instance.FinishLevel(false);
         });

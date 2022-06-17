@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 30470c5940597e94cb5d97013b7e1668
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - m_ViewDataDictionary: {instanceID: 0}
+  - baseLevel: {fileID: 5398654536968304026, guid: 173d394ca4534dd4287c2a885e7bb419, type: 3}
+  - climbPointPF: {fileID: 4053223449149567760, guid: d08fac7030cf9d34f9f2726612e5cb56, type: 3}
+  - spiderObstacle: {fileID: 1035529188497352218, guid: 76bea6ff7ab119548aa5fe92d18588f4, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -47,7 +47,7 @@ public class GameManager : PersistentSingleton<GameManager>
         EventManager.LevelStartEvent?.Invoke();
 
         //SpawnController.Instance.SpawnBats(true);
-        //SpawnController.Instance.SpawnRock(true);
+        SpawnController.Instance.SpawnRock(true);
     }
 
     public void FinishLevel(bool _success)

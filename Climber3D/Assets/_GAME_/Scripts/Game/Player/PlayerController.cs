@@ -18,6 +18,12 @@ public class PlayerController : MonoBehaviour
     public PlayerAnimations PlayerAnimations => playerAnimations;
     //public PlayerIK PlayerIK => playerIK;
 
+    public void GetHit()
+    {
+        playerMovement.CanClimb = false;
+        playerMovement.ReleaseHands();
+    }
+
 
     public void ResetParentPosition()
     {

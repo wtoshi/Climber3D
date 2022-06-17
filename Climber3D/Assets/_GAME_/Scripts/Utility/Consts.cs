@@ -23,6 +23,11 @@ public class Consts : MonoBehaviour
         public const string Hanging = "Hanging";
     }
 
+    public struct Particles
+    {
+        public const string RockHit = "FX_RockHit";
+    }
+
     public struct FileNames
     {
         public const string LEVELDATA = "level.dat";
