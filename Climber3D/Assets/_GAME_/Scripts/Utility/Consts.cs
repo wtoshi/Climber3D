@@ -7,6 +7,8 @@ public class Consts : MonoBehaviour
     {
         public const string Player = "Player";
         public const string PlayerRagdoll = "Puppet";
+        public const string Ground = "Ground";
+        public const string LevelEnd = "LevelEnd";
     }
 
     public struct Layers
@@ -26,6 +28,7 @@ public class Consts : MonoBehaviour
     public struct Particles
     {
         public const string RockHit = "FX_RockHit";
+        public const string FX_GroundHit = "FX_GroundHit";
     }
 
     public struct FileNames

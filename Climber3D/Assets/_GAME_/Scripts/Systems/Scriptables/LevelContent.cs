@@ -4,7 +4,9 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "LevelContent", menuName = "Settings/LevelContent")]
 public class LevelContent : ScriptableObject
 {
-	public LevelFacade LevelFacade;
+	[SerializeField] LevelFacade _levelFacade;
+
+	public LevelFacade LevelFacade { get => _levelFacade; set { _levelFacade = value; } }
 
 }
 

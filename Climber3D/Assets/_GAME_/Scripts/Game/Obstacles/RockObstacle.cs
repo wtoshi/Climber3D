@@ -28,6 +28,9 @@ public class RockObstacle : MonoBehaviour
 
     public void HitToPlayer(Vector3 _hitPoint)
     {
+        if (GameManager.Instance.GameState != GameManager.GameStates.Started)
+            return;
+
         _isActive = false;
         modelTransform.gameObject.SetActive(false);
 

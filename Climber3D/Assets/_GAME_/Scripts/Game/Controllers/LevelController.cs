@@ -3,11 +3,13 @@ using UnityEngine;
 public class LevelController : _LevelController
 {
 	[SerializeField] GameObject playerPF;
-	[SerializeField] Transform spawnsHolder;
+	[SerializeField] GameObject levelEndPF;
 
 	LevelFacade _levelFacade;
+	LevelEnd _levelEnd;
 
 	public LevelFacade LevelFacade => _levelFacade;
+	public LevelEnd LevelEnd => _levelEnd;
 	public Transform SpawnsHolder => spawnsHolder;
 
     private void Start()
@@ -24,6 +26,8 @@ public class LevelController : _LevelController
 	private void PrepareLevel()
 	{
 		_levelFacade = Instantiate<LevelFacade>(LevelContent.LevelFacade, LevelParent);
+
+		AddLevelEnd();
 
 		GameObject player = Instantiate(playerPF, _levelFacade.transform);
 
@@ -44,5 +48,16 @@ public class LevelController : _LevelController
 		}
 
 		Debug.LogError("Can't Instantiate Player!");
+	}
+
+	void AddLevelEnd()
+    {
+		GameObject levelEndObj = Instantiate(levelEndPF, spawnsHolder);
+
+		var newPos = levelEndObj.transform.position;
+		newPos.y = LevelFacade.LevelHeight;
+		levelEndObj.transform.position = newPos;
+
+		_levelEnd = levelEndObj.GetComponent<LevelEnd>();
 	}
 }

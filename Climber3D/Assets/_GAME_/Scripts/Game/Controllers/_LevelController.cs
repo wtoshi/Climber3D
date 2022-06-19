@@ -8,15 +8,16 @@ public abstract class _LevelController : PersistentSingleton<LevelController>
 {
     [SerializeField]
     protected Transform LevelParent;
+    [SerializeField] protected Transform spawnsHolder;
 
     protected LevelContent LevelContent;
     protected int LevelNo;
 
     #region Levels
     [SerializeField, FoldoutGroup("Levels")]
-    protected LevelContent[] allLevels;
+    public List<LevelContent> allLevels = new List<LevelContent>();
     [SerializeField, FoldoutGroup("Levels")]
-    protected LevelContent[] levelsToRepeat;
+    public List<LevelContent> levelsToRepeat = new List<LevelContent>();
     #endregion
 
     protected virtual void OnEnable()
@@ -42,15 +43,15 @@ public abstract class _LevelController : PersistentSingleton<LevelController>
 
         int index = LevelNo - 1;
 
-        if (index < allLevels.Length)
+        if (index < allLevels.Count)
         {
             return allLevels[index];
         }
         else
         {
-            if (levelsToRepeat.Length >= 0)
+            if (levelsToRepeat.Count >= 0)
             {
-                return levelsToRepeat[Random.Range(0, levelsToRepeat.Length)];
+                return levelsToRepeat[Random.Range(0, levelsToRepeat.Count)];
             }
             else
             {
@@ -92,7 +93,18 @@ public abstract class _LevelController : PersistentSingleton<LevelController>
     protected virtual void ResetLevel()
     {
         LevelParent.DestroyChildren();
+        spawnsHolder.DestroyChildren();
         //TODO Clear destroyList or DestroyTransform
+    }
+
+    public void FillLists(LevelContent _level, bool _randomToo)
+    {
+        allLevels.Add(_level);
+
+        if (_randomToo)
+        {
+            levelsToRepeat.Add(_level);
+        }
     }
 
 }

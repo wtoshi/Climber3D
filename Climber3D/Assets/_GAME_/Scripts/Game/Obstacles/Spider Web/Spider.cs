@@ -16,16 +16,11 @@ public class Spider : MonoBehaviour
         transform.rotation = Quaternion.LookRotation(distance.normalized, transform.up);
     }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            Attack(GameManager.Instance.Player.transform.position);
-        }
-    }
-
     public void Attack(Vector3 _movePos)
     {
+        if (GameManager.Instance.GameState != GameManager.GameStates.Started)
+            return;
+
         StartCoroutine(doAttack(_movePos));
     }
 
@@ -37,8 +32,6 @@ public class Spider : MonoBehaviour
 
         while (distance.magnitude >= .1f)
         {
-            Debug.Log("web distance: "+ distance.magnitude);
-
             distance = _movePos - transform.position;
 
             transform.rotation = Quaternion.LookRotation(distance.normalized, transform.up);

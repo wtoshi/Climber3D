@@ -13,6 +13,9 @@ public class Bats : MonoBehaviour
 
     void OnParticleCollision(GameObject other)
     {
+        if (GameManager.Instance.GameState != GameManager.GameStates.Started)
+            return;
+
         if (other.tag == Consts.Tags.PlayerRagdoll)
         {
             ParticleSystem.CollisionModule colModule = batsParticle.collision;

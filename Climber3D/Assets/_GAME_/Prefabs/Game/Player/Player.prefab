@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 1251833372134435247}
   - component: {fileID: 1251833372134435216}
   - component: {fileID: 1251833372134435217}
+  - component: {fileID: 6745226469015565751}
   m_Layer: 9
   m_Name: foot_r
   m_TagString: Puppet
@@ -159,6 +160,19 @@ ConfigurableJoint:
   m_EnablePreprocessing: 1
   m_MassScale: 1
   m_ConnectedMassScale: 1
+--- !u!114 &6745226469015565751
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1251833372134435218}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d581c90f3a6e65144a0bd5e94cb75464, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerController: {fileID: 2616454282052904081}
 --- !u!1 &1934280214058371172
 GameObject:
   m_ObjectHideFlags: 0
@@ -171,6 +185,7 @@ GameObject:
   - component: {fileID: 1934280214058371171}
   - component: {fileID: 1934280214058371169}
   - component: {fileID: 1934280214058371170}
+  - component: {fileID: 8748181062195023602}
   m_Layer: 9
   m_Name: lowerarm_l
   m_TagString: Puppet
@@ -320,6 +335,19 @@ ConfigurableJoint:
   m_EnablePreprocessing: 1
   m_MassScale: 1
   m_ConnectedMassScale: 2
+--- !u!114 &8748181062195023602
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1934280214058371172}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d581c90f3a6e65144a0bd5e94cb75464, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerController: {fileID: 2616454282052904081}
 --- !u!1 &1954876288165485187
 GameObject:
   m_ObjectHideFlags: 0
@@ -332,6 +360,7 @@ GameObject:
   - component: {fileID: 6690803787227583290}
   - component: {fileID: 6690803787227583291}
   - component: {fileID: 6690803787227583292}
+  - component: {fileID: 2649668891556047557}
   m_Layer: 9
   m_Name: pelvis
   m_TagString: Puppet
@@ -482,6 +511,19 @@ ConfigurableJoint:
   m_EnablePreprocessing: 1
   m_MassScale: 1
   m_ConnectedMassScale: 1
+--- !u!114 &2649668891556047557
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1954876288165485187}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d581c90f3a6e65144a0bd5e94cb75464, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerController: {fileID: 2616454282052904081}
 --- !u!1 &1992488935749265462
 GameObject:
   m_ObjectHideFlags: 0
@@ -494,6 +536,7 @@ GameObject:
   - component: {fileID: 4633498580432098948}
   - component: {fileID: 4633498580432098946}
   - component: {fileID: 4633498580432098947}
+  - component: {fileID: 2722105694900046732}
   m_Layer: 9
   m_Name: calf_r
   m_TagString: Puppet
@@ -643,6 +686,19 @@ ConfigurableJoint:
   m_EnablePreprocessing: 1
   m_MassScale: 1
   m_ConnectedMassScale: 1
+--- !u!114 &2722105694900046732
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1992488935749265462}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d581c90f3a6e65144a0bd5e94cb75464, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerController: {fileID: 2616454282052904081}
 --- !u!1 &2616454281724650794
 GameObject:
   m_ObjectHideFlags: 0
@@ -940,7 +996,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2616454282032316654}
   - component: {fileID: 5193997026838405462}
-  - component: {fileID: 7893532254277959830}
   - component: {fileID: 2616454282052904081}
   - component: {fileID: 2616454282052904082}
   - component: {fileID: 390359941626537464}
@@ -985,20 +1040,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 88
   m_CollisionDetection: 0
---- !u!136 &7893532254277959830
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2616454282032316655}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  m_Radius: 0.5
-  m_Height: 3.5
-  m_Direction: 1
-  m_Center: {x: 0, y: 1.75, z: 0}
 --- !u!114 &2616454282052904081
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1015,6 +1056,10 @@ MonoBehaviour:
   playerInput: {fileID: 2616454282052904082}
   playerRagdoll: {fileID: 6218594860788905999}
   playerAnimations: {fileID: 5666263117480273966}
+  skinnedMeshes:
+  - {fileID: 2616454282162565204}
+  - {fileID: 2616454282547307291}
+  stickmanTransform: {fileID: 2616454282458686254}
 --- !u!114 &2616454282052904082
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2916,6 +2961,7 @@ GameObject:
   - component: {fileID: 5319922880391299287}
   - component: {fileID: 5319922880391299285}
   - component: {fileID: 5319922880391299286}
+  - component: {fileID: 264801908194440535}
   m_Layer: 9
   m_Name: thigh_l
   m_TagString: Puppet
@@ -3012,7 +3058,7 @@ ConfigurableJoint:
     spring: 0
     damper: 0
   m_AngularYLimit:
-    limit: 85
+    limit: 30
     bounciness: 0
     contactDistance: 0
   m_AngularZLimit:
@@ -3065,6 +3111,19 @@ ConfigurableJoint:
   m_EnablePreprocessing: 1
   m_MassScale: 1
   m_ConnectedMassScale: 1
+--- !u!114 &264801908194440535
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2764624614329760831}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d581c90f3a6e65144a0bd5e94cb75464, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerController: {fileID: 2616454282052904081}
 --- !u!1 &3262178691805989182
 GameObject:
   m_ObjectHideFlags: 0
@@ -3367,6 +3426,7 @@ GameObject:
   - component: {fileID: 1757850304141629441}
   - component: {fileID: 1757850304141629442}
   - component: {fileID: 1757850304141629443}
+  - component: {fileID: 5840515543510008641}
   m_Layer: 9
   m_Name: hand_l
   m_TagString: Puppet
@@ -3515,6 +3575,19 @@ ConfigurableJoint:
   m_EnablePreprocessing: 1
   m_MassScale: 1
   m_ConnectedMassScale: 1
+--- !u!114 &5840515543510008641
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4029916921705633708}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d581c90f3a6e65144a0bd5e94cb75464, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerController: {fileID: 2616454282052904081}
 --- !u!1 &4932949167956012509
 GameObject:
   m_ObjectHideFlags: 0
@@ -3527,6 +3600,7 @@ GameObject:
   - component: {fileID: 4932949167956012506}
   - component: {fileID: 4932949167956012507}
   - component: {fileID: 4932949167956012508}
+  - component: {fileID: 7403541346068727021}
   m_Layer: 9
   m_Name: foot_l
   m_TagString: Puppet
@@ -3674,6 +3748,19 @@ ConfigurableJoint:
   m_EnablePreprocessing: 1
   m_MassScale: 1
   m_ConnectedMassScale: 1
+--- !u!114 &7403541346068727021
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4932949167956012509}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d581c90f3a6e65144a0bd5e94cb75464, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerController: {fileID: 2616454282052904081}
 --- !u!1 &5210681096144183690
 GameObject:
   m_ObjectHideFlags: 0
@@ -3686,6 +3773,7 @@ GameObject:
   - component: {fileID: 5210681096144183687}
   - component: {fileID: 5210681096144183688}
   - component: {fileID: 5210681096144183689}
+  - component: {fileID: 1264109193129260998}
   m_Layer: 9
   m_Name: hand_r
   m_TagString: Puppet
@@ -3834,6 +3922,19 @@ ConfigurableJoint:
   m_EnablePreprocessing: 1
   m_MassScale: 1
   m_ConnectedMassScale: 1
+--- !u!114 &1264109193129260998
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5210681096144183690}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d581c90f3a6e65144a0bd5e94cb75464, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerController: {fileID: 2616454282052904081}
 --- !u!1 &5440095404823590923
 GameObject:
   m_ObjectHideFlags: 0
@@ -3879,6 +3980,7 @@ GameObject:
   - component: {fileID: 6752733834074390268}
   - component: {fileID: 6752733834074390266}
   - component: {fileID: 6752733834074390267}
+  - component: {fileID: 4995019992844871191}
   m_Layer: 9
   m_Name: lowerarm_r
   m_TagString: Puppet
@@ -4028,6 +4130,19 @@ ConfigurableJoint:
   m_EnablePreprocessing: 1
   m_MassScale: 1
   m_ConnectedMassScale: 2
+--- !u!114 &4995019992844871191
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6168989667857244219}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d581c90f3a6e65144a0bd5e94cb75464, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerController: {fileID: 2616454282052904081}
 --- !u!1 &7301567676720549734
 GameObject:
   m_ObjectHideFlags: 0
@@ -4040,6 +4155,7 @@ GameObject:
   - component: {fileID: 7301567676720549733}
   - component: {fileID: 7301567676720549731}
   - component: {fileID: 7301567676720549732}
+  - component: {fileID: 7505076002511938530}
   m_Layer: 9
   m_Name: upperarm_l
   m_TagString: Puppet
@@ -4189,6 +4305,19 @@ ConfigurableJoint:
   m_EnablePreprocessing: 1
   m_MassScale: 1
   m_ConnectedMassScale: 2
+--- !u!114 &7505076002511938530
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7301567676720549734}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d581c90f3a6e65144a0bd5e94cb75464, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerController: {fileID: 2616454282052904081}
 --- !u!1 &7413840810894995475
 GameObject:
   m_ObjectHideFlags: 0
@@ -4201,6 +4330,7 @@ GameObject:
   - component: {fileID: 7413840810894995474}
   - component: {fileID: 7413840810894995472}
   - component: {fileID: 7413840810894995473}
+  - component: {fileID: 8125764530059251816}
   m_Layer: 9
   m_Name: thigh_r
   m_TagString: Puppet
@@ -4297,7 +4427,7 @@ ConfigurableJoint:
     spring: 0
     damper: 0
   m_AngularYLimit:
-    limit: 85
+    limit: 30
     bounciness: 0
     contactDistance: 0
   m_AngularZLimit:
@@ -4350,6 +4480,19 @@ ConfigurableJoint:
   m_EnablePreprocessing: 1
   m_MassScale: 1
   m_ConnectedMassScale: 1
+--- !u!114 &8125764530059251816
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7413840810894995475}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d581c90f3a6e65144a0bd5e94cb75464, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerController: {fileID: 2616454282052904081}
 --- !u!1 &7426916051579046140
 GameObject:
   m_ObjectHideFlags: 0
@@ -4362,6 +4505,7 @@ GameObject:
   - component: {fileID: 7426916051579046139}
   - component: {fileID: 7426916051579046137}
   - component: {fileID: 7426916051579046138}
+  - component: {fileID: 247063303481702594}
   m_Layer: 9
   m_Name: upperarm_r
   m_TagString: Puppet
@@ -4511,6 +4655,19 @@ ConfigurableJoint:
   m_EnablePreprocessing: 1
   m_MassScale: 1
   m_ConnectedMassScale: 2
+--- !u!114 &247063303481702594
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7426916051579046140}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d581c90f3a6e65144a0bd5e94cb75464, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerController: {fileID: 2616454282052904081}
 --- !u!1 &7557716451740768591
 GameObject:
   m_ObjectHideFlags: 0
@@ -4523,6 +4680,7 @@ GameObject:
   - component: {fileID: 8231068424390567601}
   - component: {fileID: 8231068424390567631}
   - component: {fileID: 8231068424390567600}
+  - component: {fileID: 3536929572885408144}
   m_Layer: 9
   m_Name: calf_l
   m_TagString: Puppet
@@ -4672,6 +4830,19 @@ ConfigurableJoint:
   m_EnablePreprocessing: 1
   m_MassScale: 1
   m_ConnectedMassScale: 1
+--- !u!114 &3536929572885408144
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7557716451740768591}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d581c90f3a6e65144a0bd5e94cb75464, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerController: {fileID: 2616454282052904081}
 --- !u!1 &7902112526136932469
 GameObject:
   m_ObjectHideFlags: 0
@@ -5258,6 +5429,7 @@ GameObject:
   - component: {fileID: 9025492940082769006}
   - component: {fileID: 9025492940082769004}
   - component: {fileID: 9025492940082769005}
+  - component: {fileID: 5479870922043294263}
   m_Layer: 9
   m_Name: spine_02
   m_TagString: Puppet
@@ -5355,7 +5527,7 @@ ConfigurableJoint:
     spring: 0
     damper: 0
   m_AngularYLimit:
-    limit: 25
+    limit: 15
     bounciness: 0
     contactDistance: 0
   m_AngularZLimit:
@@ -5408,6 +5580,19 @@ ConfigurableJoint:
   m_EnablePreprocessing: 1
   m_MassScale: 1
   m_ConnectedMassScale: 1
+--- !u!114 &5479870922043294263
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9025492940082769007}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d581c90f3a6e65144a0bd5e94cb75464, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerController: {fileID: 2616454282052904081}
 --- !u!1 &9035115206606152345
 GameObject:
   m_ObjectHideFlags: 0
@@ -5420,6 +5605,7 @@ GameObject:
   - component: {fileID: 9035115206606152342}
   - component: {fileID: 9035115206606152344}
   - component: {fileID: 9035115206606152343}
+  - component: {fileID: 6907533441816634979}
   m_Layer: 9
   m_Name: head
   m_TagString: Puppet
@@ -5568,3 +5754,16 @@ ConfigurableJoint:
   m_EnablePreprocessing: 1
   m_MassScale: 1
   m_ConnectedMassScale: 1
+--- !u!114 &6907533441816634979
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9035115206606152345}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d581c90f3a6e65144a0bd5e94cb75464, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerController: {fileID: 2616454282052904081}

@@ -94,6 +94,18 @@ public class CameraManager : PersistentSingleton<CameraManager>
         successCam.Priority = 12;
     }
 
+    public void SetFailCameraTarget(Transform _target)
+    {
+        failCam.Follow = _target;
+        failCam.LookAt = _target;
+    }
+
+    public void SetsuccessCameraTarget(Transform _target)
+    {
+        successCam.Follow = _target;
+        successCam.LookAt = _target;
+    }
+
     private void ShakeCamera(ShakeCameraData eventData)
     {
         _cinemachineBasicMultiChannelPerlin = gameplayCam.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();

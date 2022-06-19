@@ -33,6 +33,7 @@ public class LevelEditor : EditorWindow
     // LEVELFACADE
     Transform _obstacleHolder;
     Transform _climbPointHolder;
+    Transform _rocksHolder;
     List<ClimbPoint> _climbPointsList;
     Transform _levelWall;
     //
@@ -113,28 +114,50 @@ public class LevelEditor : EditorWindow
                     SetLevelHeight();
                 }
 
-                // ADD CLIMB POINT
-                if (GUI.Button(new Rect(10, 200 + EditorGUIUtility.singleLineHeight, 150, 40), "Add Spider Obstacle"))
-                {
-                    AddSpiderObstacle();
-                }
+                GameObject lastRockGroup = null;
 
                 // ADD CLIMB POINT
-                if (GUI.Button(new Rect(10, 250 + EditorGUIUtility.singleLineHeight, 150, 40), "Add Climb Points"))
+                if (GUI.Button(new Rect(10, 150 + EditorGUIUtility.singleLineHeight, 150, 40), "Add Climb Points"))
                 {
                     AddClimbPoints();
                 }
 
                 // CHECK FREE POINTS
-                if (GUI.Button(new Rect(200, 250 + EditorGUIUtility.singleLineHeight, 150, 40), "CHECK POINTS"))
+                if (GUI.Button(new Rect(200, 150 + EditorGUIUtility.singleLineHeight, 150, 40), "CHECK POINTS"))
                 {
                     CheckClimbPoints();
                 }
+
+                // Add Rocks
+                if (GUI.Button(new Rect(10, 200 + EditorGUIUtility.singleLineHeight, 150, 40), "Add Rocks"))
+                {
+                    lastRockGroup = AddRockGroup();
+                }
+
+                // Destroy Last Rocks
+                if (lastRockGroup != null)
+                {
+                    if (GUI.Button(new Rect(10, 200 + EditorGUIUtility.singleLineHeight, 150, 40), "Remove last Rocks"))
+                    {
+                        Destroy(lastRockGroup);
+                    }
+                }
+
+
+                // Add Spider Obstacle
+                if (GUI.Button(new Rect(10, 250 + EditorGUIUtility.singleLineHeight, 150, 40), "Add Spider Obstacle"))
+                {
+                    AddSpiderObstacle();
+                }
+
+
 
                 // CREATE/SAVE
                 string baslik = _levelEditMode ? "Save" : "Create";
                 if (GUI.Button(new Rect(10, 380 + EditorGUIUtility.singleLineHeight, 100, 40), baslik))
                 {
+                    LevelContent levelContent = null;
+
                     if (_levelEditMode)
                     {
                         PrefabUtility.ApplyPrefabInstance(levelFacade.gameObject, InteractionMode.AutomatedAction);
@@ -147,17 +170,24 @@ public class LevelEditor : EditorWindow
 
                         levelsList.Add(prefab);
 
+                        levelContent = CreateScriptableObject();
+
                         EditorUtility.FocusProjectWindow();
                         Selection.activeObject = levelFacade;
                     }
 
-                    GetObjectsFmDirectory();
+                    windowId = 1;
+                    OpenMainScene();
+
+                    if (!_levelEditMode)
+                    {
+                        SetLevelController(levelContent, true);
+                    }
 
                     levelFacade = null;
                     _levelEditMode = false;
 
-                    windowId = 1;
-                    OpenMainScene();
+                    GetObjectsFmDirectory();
                 }
 
                 if (GUI.Button(new Rect(115, 380 + EditorGUIUtility.singleLineHeight, 100, 40), "Cancel"))
@@ -209,7 +239,7 @@ public class LevelEditor : EditorWindow
         EditorSceneManager.OpenScene("Assets/_GAME_/Scenes/GameScene.unity", OpenSceneMode.Single);
     }
     
-    void OpenEditorScene() //Create a new scene
+    void OpenEditorScene()
     {
         lastScene = EditorSceneManager.GetActiveScene();
 
@@ -254,79 +284,6 @@ public class LevelEditor : EditorWindow
         return go.GetComponent<LevelFacade>();
     }
 
-    LevelFacade SpawnBaseLevel()
-    {
-        if (levelFacade != null)
-            return null;
-
-        string platformName = "Level"+ levelNameIndex;
-
-        GameObject go = PrefabUtility.InstantiatePrefab(baseLevel) as GameObject;
-        go.name = platformName;
-
-        PrefabUtility.UnpackPrefabInstance(go, PrefabUnpackMode.Completely, InteractionMode.AutomatedAction);
-
-        UnityEditor.Selection.activeObject = go; //Selecting new object
-
-        return go.GetComponent<LevelFacade>();
-    }
-
-    void GetObjectsFmDirectory()
-    {
-        //Get Base Level
-        string baseLevelDir = "Assets/_GAME_/Prefabs/Levels/Base/";
-        DirectoryInfo dir = new DirectoryInfo(baseLevelDir);
-        FileInfo[] files = dir.GetFiles("*.prefab");
-
-        GameObject levelPF = (GameObject)AssetDatabase.LoadAssetAtPath(baseLevelDir + files[0].Name, typeof(GameObject));
-        baseLevel = levelPF;
-
-        // Fill levelsList
-        string levelsDir = "Assets/_GAME_/Prefabs/Levels/";
-
-        DirectoryInfo dir2 = new DirectoryInfo(levelsDir);
-        FileInfo[] files2 = dir2.GetFiles("*.prefab");
-
-        levelsList.Clear();
-      
-        foreach (FileInfo fileInfo in files2)
-        {
-            GameObject prefab = (GameObject)AssetDatabase.LoadAssetAtPath(levelsDir + fileInfo.Name, typeof(GameObject));
-            levelsList.Add(prefab);
-        }
-
-        //Get new Level Index
-        levelNameIndex = levelsList.Count + 1;
-
-        // Fill RockGroups
-        string rocksDir = "Assets/_GAME_/Prefabs/Game/Level/RockGroups/";
-
-        DirectoryInfo dir3 = new DirectoryInfo(rocksDir);
-        FileInfo[] files3 = dir3.GetFiles("*.prefab");
-
-        levelRocks.Clear();
-
-        foreach (FileInfo fileInfo in files3)
-        {
-            GameObject prefab = (GameObject)AssetDatabase.LoadAssetAtPath(rocksDir + fileInfo.Name, typeof(GameObject));
-            levelRocks.Add(prefab);
-        }
-    }
-
-    void FillRocks()
-    {
-        StartCoroutine(doFillRocks());
-    }
-
-    IEnumerator doFillRocks()
-    {
-        for (int y = 0; y < levelFacade.LevelHeight; y++)
-        {
-
-            yield return null;
-        }
-    }
-
     void SetLevelHeight()
     {
         if (levelFacade == null)
@@ -344,6 +301,7 @@ public class LevelEditor : EditorWindow
         if (levelFacade == null)
             return;
 
+        _rocksHolder = levelFacade.transform.Find("Environment/Rocks Holder");
         _climbPointHolder = levelFacade.transform.Find("Environment/Climb Points Holder");
         _obstacleHolder = levelFacade.transform.Find("Obstacles");
 
@@ -403,6 +361,16 @@ public class LevelEditor : EditorWindow
         Selection.activeGameObject = obj;
     }
 
+    GameObject AddRockGroup()
+    {
+        GameObject rockGroupObj = levelRocks[Random.Range(0, levelRocks.Count)];
+        GameObject obj = Instantiate(rockGroupObj, _rocksHolder);
+
+        Selection.activeGameObject = obj;
+
+        return obj;
+    }
+
     void CheckClimbPoints()
     {
         bool error = false;
@@ -412,6 +380,11 @@ public class LevelEditor : EditorWindow
         for (int i = 0; i < _climbPointsList.Count; i++)
         {
             _climbPointsList[i].GetComponent<Collider>().enabled = false;
+
+            var newPos = _climbPointsList[i].transform.position;
+            newPos.x = newPos.x < -3f ? -3f : newPos.x;
+            newPos.x = newPos.x > 3f ? 3f : newPos.x;
+            _climbPointsList[i].transform.position = newPos;
 
             Collider[] cols = Physics.OverlapSphere(_climbPointsList[i].transform.position, 2.5f, LayerMask.GetMask("Touchable"));
             
@@ -437,5 +410,84 @@ public class LevelEditor : EditorWindow
         }
     }
 
+    void GetObjectsFmDirectory()
+    {
+        //Get Base Level
+        string baseLevelDir = "Assets/_GAME_/Prefabs/Levels/Base/";
+        DirectoryInfo dir = new DirectoryInfo(baseLevelDir);
+        FileInfo[] files = dir.GetFiles("*.prefab");
 
+        GameObject levelPF = (GameObject)AssetDatabase.LoadAssetAtPath(baseLevelDir + files[0].Name, typeof(GameObject));
+        baseLevel = levelPF;
+
+        // Fill levelsList
+        string levelsDir = "Assets/_GAME_/Prefabs/Levels/";
+
+        DirectoryInfo dir2 = new DirectoryInfo(levelsDir);
+        FileInfo[] files2 = dir2.GetFiles("*.prefab");
+
+        levelsList.Clear();
+
+        foreach (FileInfo fileInfo in files2)
+        {
+            GameObject prefab = (GameObject)AssetDatabase.LoadAssetAtPath(levelsDir + fileInfo.Name, typeof(GameObject));
+            levelsList.Add(prefab);
+        }
+
+        //Get new Level Index
+        levelNameIndex = levelsList.Count + 1;
+
+        // Fill RockGroups
+        string rocksDir = "Assets/_GAME_/Prefabs/Game/Level/RockGroups/";
+
+        DirectoryInfo dir3 = new DirectoryInfo(rocksDir);
+        FileInfo[] files3 = dir3.GetFiles("*.prefab");
+
+        levelRocks.Clear();
+
+        foreach (FileInfo fileInfo in files3)
+        {
+            GameObject prefab = (GameObject)AssetDatabase.LoadAssetAtPath(rocksDir + fileInfo.Name, typeof(GameObject));
+            levelRocks.Add(prefab);
+        }
+    }
+
+    LevelContent CreateScriptableObject()
+    {
+        
+        LevelContent so = ScriptableObject.CreateInstance<LevelContent>();
+
+        // Create Asset 
+        string path = "Assets/_GAME_/Scriptable Objects/Levels/Level_"+ levelNameIndex+".asset";
+        AssetDatabase.CreateAsset(so, path);
+        AssetDatabase.SaveAssets();
+        AssetDatabase.Refresh();
+
+        //Get Level prefab
+        string levelsDir = "Assets/_GAME_/Prefabs/Levels/";
+        LevelFacade level = AssetDatabase.LoadAssetAtPath<LevelFacade>(levelsDir + levelFacade.name + ".prefab");
+
+        Debug.Log("level: " + level.name);
+
+
+        string levelContentPath = "Assets/_GAME_/Scriptable Objects/Levels/";
+        LevelContent levelContent = AssetDatabase.LoadAssetAtPath<LevelContent>(levelContentPath + levelFacade.name + ".asset");
+        Debug.Log("levelContent: "+ levelContent.name);
+        levelContent.LevelFacade = level;
+
+        EditorUtility.SetDirty(levelContent);
+        AssetDatabase.SaveAssets();
+
+        return levelContent;
+        //EditorUtility.FocusProjectWindow();
+        //Selection.activeObject = so;
+    }
+
+    void SetLevelController(LevelContent _level, bool _randomToo)
+    {
+        string levelContentPath = "Assets/_GAME_/Scriptable Objects/Levels/";
+        LevelContent levelContent = AssetDatabase.LoadAssetAtPath<LevelContent>(levelContentPath + "Level_"+ levelNameIndex+ ".asset");
+
+        FindObjectOfType<LevelController>().FillLists(levelContent, _randomToo);
+    }
 }

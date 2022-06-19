@@ -6,6 +6,7 @@ using UnityEngine;
 
 public class GameManager : PersistentSingleton<GameManager>
 {
+    [SerializeField] GameSettings gameSettings;
 
     #region Locals
     GameStates _gameState = GameStates.Loading;
@@ -15,6 +16,7 @@ public class GameManager : PersistentSingleton<GameManager>
     #region Properties
     public GameStates GameState => _gameState;
     public PlayerController Player { get { return _player; } set { _player = value; } }
+    public GameSettings GameSettings => gameSettings;
     #endregion
 
     //TODO TUTORIAL public static bool IsTutorial = false;
@@ -46,7 +48,7 @@ public class GameManager : PersistentSingleton<GameManager>
 
         EventManager.LevelStartEvent?.Invoke();
 
-        //SpawnController.Instance.SpawnBats(true);
+        SpawnController.Instance.SpawnBats(true);
         SpawnController.Instance.SpawnRock(true);
     }
 

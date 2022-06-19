@@ -18,7 +18,7 @@ public class PlayerRagdoll : MonoBehaviour
 
     void FirstState()
     {
-        myRagdoll.mappingWeight = 0f;
+        SetMappingWeight(0);
     }
 
     public void SetForGame()
@@ -27,9 +27,19 @@ public class PlayerRagdoll : MonoBehaviour
         SetPinWeight(0);
     }
 
-    void SetPinWeight(float _weight)
+    public void SetPinWeight(float _weight)
     {
         myRagdoll.pinWeight = _weight;
+    }
+
+    public void SetMappingWeight(float _weight)
+    {
+        myRagdoll.mappingWeight = _weight;
+    }
+
+    public void SetMode(PuppetMaster.Mode _mode)
+    {
+        myRagdoll.mode = _mode;
     }
 
     void EnableRagdoll(bool _mode)

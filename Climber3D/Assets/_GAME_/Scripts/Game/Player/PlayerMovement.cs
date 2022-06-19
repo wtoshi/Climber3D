@@ -24,6 +24,7 @@ public class PlayerMovement : MonoBehaviour
     ClimbPoint _currentClimbPoint;
     float _currentClimbSpeed;
     bool _isClimbing;
+    Tweener _handMoveTween;
 
     private void Start()
     {
@@ -62,7 +63,6 @@ public class PlayerMovement : MonoBehaviour
         
         this.Run(.8f, ()=> {
 
-            //myRB.velocity = Vector3.up * _currentClimbSpeed;
             myRB.AddForce(Vector3.up * 5f, ForceMode.Impulse);
 
             this.Run(.2f, ()=> {
@@ -77,7 +77,7 @@ public class PlayerMovement : MonoBehaviour
 
                 _isClimbing = false;
                 _canClimb = true;
-                playerController.ResetParentPosition();
+                //playerController.ResetParentPosition();
             });
         });
         
@@ -90,7 +90,7 @@ public class PlayerMovement : MonoBehaviour
 
         ClimbPoint toPoint = _data.climbPoint;
 
-        bool toRight = toPoint.transform.position.x >= transform.position.x;
+        bool toRight = toPoint.transform.position.x >= pelvis.position.x;
 
         // Check distance
         Vector3 distance = Vector3.zero;
@@ -103,15 +103,16 @@ public class PlayerMovement : MonoBehaviour
 
         float dist = Mathf.Abs(distance.magnitude);
         Debug.Log("distance: "+ dist);
-        if (dist >= 3f)
+        if (dist >= 2.75f)
             return;
 
         _isClimbing = true;
 
         // Move hands
         MoveHand(toPoint, toRight, ()=> {
+            //playerController.ResetParentPosition();
             MoveHand(toPoint,!toRight, ()=> {
-                playerController.ResetParentPosition();
+                //playerController.ResetParentPosition();
                 _isClimbing = false;
                 _currentClimbPoint = toPoint;
             });
@@ -132,13 +133,14 @@ public class PlayerMovement : MonoBehaviour
             handAnchor.connectedBody = handRB;
         }
 
-        handAnchorRB.DOMove(toMove.position, baseClimbSpeed).SetEase(Ease.Linear).SetSpeedBased(true).OnComplete(()=> {
+        _handMoveTween = handAnchorRB.DOMove(toMove.position, baseClimbSpeed).SetEase(Ease.Linear).SetSpeedBased(true).OnComplete(()=> {
             _onComplete?.Invoke();
         });
     }
 
     public void ReleaseHands()
     {
+        _handMoveTween.Pause();
         rightHandAnchor.connectedBody = null;
         leftHandAnchor.connectedBody = null;
     }

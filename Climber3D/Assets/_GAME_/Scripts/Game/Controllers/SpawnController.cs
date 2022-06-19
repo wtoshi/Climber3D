@@ -11,8 +11,6 @@ public class SpawnController : PersistentSingleton<SpawnController>
     [SerializeField] Vector2 batsSpawnPositions;
     [FoldoutGroup("Bat Spawn Settings")]
     [SerializeField] float yMaxDistanceToPlayer;
-    [FoldoutGroup("Bat Spawn Settings")]
-    [SerializeField] float baseBatsSpawnGap;
 
     [FoldoutGroup("Rock Spawn Settings")]
     [SerializeField] GameObject rockPF;
@@ -38,6 +36,15 @@ public class SpawnController : PersistentSingleton<SpawnController>
         Bats, Rock, Spider
     }
 
+    private void OnEnable()
+    {
+        EventManager.LevelResetEvent.AddListener(ResetHolder);
+    }
+    private void OnDisable()
+    {
+        EventManager.LevelResetEvent.RemoveListener(ResetHolder);
+    }
+
     public void SpawnRock(bool _mode)
     {
         if (_spawnRockCO != null)
@@ -53,13 +60,19 @@ public class SpawnController : PersistentSingleton<SpawnController>
     {
         while (true)
         {
-            yield return new WaitForSeconds(baseBatsSpawnGap);
+            var random = Random.Range(GameManager.Instance.GameSettings.BaseSpawnGap, GameManager.Instance.GameSettings.BaseSpawnGap + 5f);
+            yield return new WaitForSeconds(random);
 
-            var playerPos = GameManager.Instance.Player.transform.position;
+            var playerPos = GameManager.Instance.Player.PlayerMovement.pelvis.transform.position;
 
             bool fmLeft = Random.Range(0, 2) == 0;
 
             Vector3 spawnPos = new Vector3();
+
+            if ((playerPos.y + yDistanceToPlayer) > LevelController.Instance.LevelFacade.LevelHeight)
+            {
+                yield break;
+            }
 
             spawnPos.z = playerPos.z;
             spawnPos.y = playerPos.y + yDistanceToPlayer;
@@ -96,16 +109,19 @@ public class SpawnController : PersistentSingleton<SpawnController>
     {
         while (true)
         {
-            yield return new WaitForSeconds(baseBatsSpawnGap);
+            var random = Random.Range(GameManager.Instance.GameSettings.BaseSpawnGap, GameManager.Instance.GameSettings.BaseSpawnGap + 5f);
+            yield return new WaitForSeconds(random);
 
-            var playerPos = GameManager.Instance.Player.transform.position;
+            var playerPos = GameManager.Instance.Player.PlayerMovement.pelvis.transform.position;
            
             bool fmLeft = Random.Range(0, 2) == 0;
 
             Vector3 spawnPos = new Vector3();
 
+            float minY = (playerPos.y + yMaxDistanceToPlayer) > LevelController.Instance.LevelFacade.LevelHeight ? playerPos.y - yMaxDistanceToPlayer / 2 : playerPos.y;
+            float maxY = (playerPos.y + yMaxDistanceToPlayer) > LevelController.Instance.LevelFacade.LevelHeight ? LevelController.Instance.LevelFacade.LevelHeight : (playerPos.y + yMaxDistanceToPlayer);
             spawnPos.z = playerPos.z;
-            spawnPos.y = Random.Range(playerPos.y, playerPos.y + yMaxDistanceToPlayer);
+            spawnPos.y = Random.Range(minY, maxY);
             spawnPos.x = fmLeft ? batsSpawnPositions.x : batsSpawnPositions.y;
 
             // Add Alert Icon firstly
@@ -135,6 +151,11 @@ public class SpawnController : PersistentSingleton<SpawnController>
         alertUI.Set(_worldPos, _obstacleType);
 
         return alertUI;
+    }
+
+    void ResetHolder()
+    {
+        alertUIHolder.DestroyChildren();
     }
 
 }
